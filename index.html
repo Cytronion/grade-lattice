@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grade Lattice · BCA marksheet</title>
+  <style>
+    :root {
+      --paper: #f3eee4;
+      --paper-2: #e7e0d2;
+      --ink: #1c1915;
+      --muted: #6d6458;
+      --rule: #d4cbbd;
+      --rust: #9c3b2c;
+      --moss: #2f5d45;
+      --gold: #8d6b32;
+      --shadow: 0 18px 50px rgba(40, 32, 22, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(156, 59, 44, 0.08), transparent 28%),
+        linear-gradient(180deg, #efe8dc 0%, var(--paper) 40%, #e9e2d6 100%);
+      font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif;
+      min-height: 100vh;
+    }
+    .sheet {
+      max-width: 1080px;
+      margin: 28px auto 48px;
+      background: var(--paper);
+      border: 1px solid #cfc6b6;
+      box-shadow: var(--shadow);
+      padding: 28px 32px 36px;
+      position: relative;
+    }
+    .sheet:before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 1px solid rgba(156, 59, 44, 0.35);
+      pointer-events: none;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 14px;
+      position: relative;
+    }
+    .kicker {
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--rust);
+      font-family: "Courier New", monospace;
+    }
+    h1 { font-weight: 500; font-size: 40px; margin: 6px 0 0; letter-spacing: -0.03em; }
+    .file {
+      text-align: right;
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .seal {
+      width: 74px; height: 74px; border-radius: 50%;
+      border: 2px solid var(--rust); color: var(--rust);
+      display: grid; place-items: center; text-align: center;
+      font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+      transform: rotate(-8deg); margin-left: auto;
+    }
+    .layout { display: grid; grid-template-columns: 1.4fr 0.8fr; gap: 28px; margin-top: 22px; position: relative; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th {
+      text-align: left; font-weight: 500; font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--ink); padding: 6px 4px;
+    }
+    td { border-bottom: 1px solid var(--rule); padding: 8px 4px; vertical-align: middle; }
+    .code { font-family: "Courier New", monospace; font-size: 12px; color: var(--muted); }
+    input[type="number"] {
+      width: 64px; border: none; border-bottom: 1px solid var(--ink);
+      background: transparent; font: inherit; font-size: 16px; text-align: right; color: var(--ink);
+    }
+    input:focus { outline: none; border-bottom-color: var(--rust); }
+    .band { font-family: "Courier New", monospace; font-size: 12px; }
+    .side h2 { font-size: 18px; font-weight: 500; margin: 0 0 8px; }
+    .metric {
+      display: flex; justify-content: space-between; align-items: baseline;
+      border-top: 1px solid var(--ink); padding-top: 10px; margin-bottom: 16px;
+    }
+    .metric b { font-size: 42px; font-weight: 500; letter-spacing: -0.04em; }
+    .trap { border-top: 1px dashed var(--rule); padding: 8px 0; }
+    .trap strong { font-weight: 600; }
+    .trap span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+    .plan { background: #f7f3ea; border: 1px solid var(--rule); padding: 12px 14px; margin-top: 14px; }
+    .plan li { margin: 6px 0; }
+    button, .ghost {
+      font-family: "Courier New", monospace; font-size: 12px; letter-spacing: 0.08em;
+      text-transform: uppercase; background: var(--ink); color: var(--paper);
+      border: none; padding: 8px 12px; cursor: pointer;
+    }
+    .controls { display: flex; gap: 10px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+    .controls label { font-family: "Courier New", monospace; font-size: 12px; color: var(--muted); }
+    .note { color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .good { color: var(--moss); }
+    .warn { color: var(--rust); }
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+      .sheet { margin: 0; padding: 20px 16px 28px; }
+      h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header>
+      <div>
+        <div class="kicker">Faculty of Computer Applications · Docket 04</div>
+        <h1>Grade Lattice</h1>
+        <p class="note">Semester IV marksheet. The lattice ranks subjects by how much SGPA a single band-crossing is worth.</p>
+      </div>
+      <div>
+        <div class="seal">Credit<br>trap<br>audit</div>
+        <div class="file">FILE BCA/SGPA/04<br>PROGRAMME BCA<br>SCALE 10 POINT</div>
+      </div>
+    </header>
+    <section class="layout">
+      <div>
+        <table>
+          <thead>
+            <tr><th>Paper</th><th>Cr</th><th>Marks</th><th>Band</th><th>To next</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="controls">
+          <label>Target SGPA <input id="target" type="number" min="5" max="10" step="0.1" value="8.0" /></label>
+          <label>Mark budget <input id="budget" type="number" min="1" max="40" step="1" value="12" /></label>
+          <button id="reset" type="button">Reset sample</button>
+        </div>
+      </div>
+      <aside class="side">
+        <div class="metric"><span>Current SGPA</span><b id="sgpa">—</b></div>
+        <h2>Credit traps</h2>
+        <div id="traps"></div>
+        <div class="plan">
+          <h2>Recovery spend</h2>
+          <p class="note" id="plan-status"></p>
+          <ol id="plan"></ol>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script>
+    const BANDS = [[90, "O", 10], [80, "A+", 9], [70, "A", 8], [60, "B+", 7], [50, "B", 6], [40, "C", 5], [0, "F", 0]];
+    const SAMPLE = [
+      { code: "BCA-401", title: "Data Structures", credits: 4, marks: 76 },
+      { code: "BCA-402", title: "Database Systems", credits: 4, marks: 68 },
+      { code: "BCA-403", title: "Operating Systems", credits: 4, marks: 81 },
+      { code: "BCA-404", title: "Computer Networks", credits: 3, marks: 59 },
+      { code: "BCA-405", title: "Discrete Mathematics", credits: 4, marks: 72 },
+      { code: "BCA-441", title: "DS Lab", credits: 2, marks: 88 },
+      { code: "BCA-442", title: "DBMS Lab", credits: 2, marks: 64 }
+    ];
+    let subjects = SAMPLE.map(s => ({ ...s }));
+
+    function bandFor(marks) {
+      marks = Math.max(0, Math.min(100, marks));
+      return BANDS.find(row => marks >= row[0]);
+    }
+    function nextBand(marks) {
+      const higher = BANDS.filter(row => row[0] > marks);
+      return higher.length ? higher[higher.length - 1] : null;
+    }
+    function sgpa(list) {
+      const credits = list.reduce((n, s) => n + s.credits, 0) || 1;
+      const weighted = list.reduce((n, s) => n + bandFor(s.marks)[2] * s.credits, 0);
+      return Math.round((weighted / credits) * 100) / 100;
+    }
+    function trapRows(list) {
+      const credits = list.reduce((n, s) => n + s.credits, 0) || 1;
+      return list.map(s => {
+        const current = bandFor(s.marks);
+        const nxt = nextBand(s.marks);
+        if (!nxt) return { ...s, band: current[1], needed: 0, swing: 0, score: 0, next: "O" };
+        const needed = nxt[0] - s.marks;
+        const swing = ((nxt[2] - current[2]) * s.credits) / credits;
+        return { ...s, band: current[1], needed, swing, score: needed ? swing / needed : 0, next: nxt[1] };
+      }).sort((a, b) => b.score - a.score);
+    }
+    function recover(list, target, budget) {
+      const working = list.map(s => ({ ...s }));
+      const spent = [];
+      let left = budget;
+      while (left > 0 && sgpa(working) < target) {
+        const best = trapRows(working).find(row => row.needed > 0);
+        if (!best) break;
+        const take = Math.min(left, best.needed);
+        const subject = working.find(s => s.code === best.code);
+        subject.marks = Math.min(100, subject.marks + take);
+        spent.push({ code: best.code, title: best.title, marks: take, toward: best.next });
+        left -= take;
+      }
+      return { reached: sgpa(working) >= target, sgpa: sgpa(working), spent, left };
+    }
+    function render() {
+      const rows = document.getElementById("rows");
+      rows.innerHTML = subjects.map((s, i) => {
+        const current = bandFor(s.marks);
+        const nxt = nextBand(s.marks);
+        const need = nxt ? `${nxt[0] - s.marks} to ${nxt[1]}` : "top band";
+        return `<tr>
+          <td><div>${s.title}</div><div class="code">${s.code}</div></td>
+          <td>${s.credits}</td>
+          <td><input type="number" min="0" max="100" value="${s.marks}" data-i="${i}" /></td>
+          <td class="band">${current[1]} · ${current[2]}</td>
+          <td class="code">${need}</td>
+        </tr>`;
+      }).join("");
+      rows.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", () => {
+          subjects[input.dataset.i].marks = Number(input.value || 0);
+          render();
+        });
+      });
+      document.getElementById("sgpa").textContent = sgpa(subjects).toFixed(2);
+      const ranked = trapRows(subjects).filter(row => row.needed > 0).slice(0, 4);
+      document.getElementById("traps").innerHTML = ranked.map(row => `
+        <div class="trap">
+          <strong>${row.title}</strong>
+          <span>+${row.needed} marks crosses into ${row.next} · SGPA swing ${row.swing.toFixed(2)} · trap ${row.score.toFixed(3)}</span>
+        </div>`).join("") || `<p class="note">Every paper is already at O.</p>`;
+      const target = Number(document.getElementById("target").value);
+      const budget = Number(document.getElementById("budget").value);
+      const plan = recover(subjects, target, budget);
+      document.getElementById("plan-status").innerHTML = plan.reached
+        ? `<span class="good">Target ${target.toFixed(1)} reached at ${plan.sgpa.toFixed(2)}. Budget left: ${plan.left}.</span>`
+        : `<span class="warn">Budget ends at ${plan.sgpa.toFixed(2)}. Target ${target.toFixed(1)} still open.</span>`;
+      document.getElementById("plan").innerHTML = plan.spent.map(item =>
+        `<li>+${item.marks} on ${item.title} toward ${item.toward}</li>`).join("") || "<li>No spend needed.</li>";
+    }
+    document.getElementById("target").addEventListener("input", render);
+    document.getElementById("budget").addEventListener("input", render);
+    document.getElementById("reset").addEventListener("click", () => {
+      subjects = SAMPLE.map(s => ({ ...s }));
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
